@@ -37,9 +37,12 @@
 
                 <hr class = "sep">
                 <div class = "classesButtons">
-                    <button class = "btn orderClassBtn inline"> Order by Name</button>
-                    <button class = "btn orderClassBtn inline"> Order by Subject</button>
-                    <button class = "btn orderClassBtn inline"> Order by Academic Term</button>
+                    <form action = "../general/funcs.php" method = "POST">
+                        <button class = "btn orderClassBtn inline" name = "class-order-mypath-byname"> Order by Name</button>
+                        <button class = "btn orderClassBtn inline" name = "class-order-mypath-bysubject"> Order by Subject</button>
+                        <button class = "btn orderClassBtn inline" name = "class-order-mypath-byterm"> Order by Academic Term</button>
+                        <input type = "hidden" name = "message" value = "reorder-classes">
+                </form>
                 </div>
                 <br><br>
                 <!-- DISPLAY MY CLASSES -->

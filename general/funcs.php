@@ -1,5 +1,5 @@
 <?php
-    if(session_status() == PHP_SESSION_NONE)session_start();
+    if(session_id() == '') session_start();
     // --------------- POSTS -----------------//
     if($_POST['message'] == "startClassSession")
     {
@@ -103,8 +103,17 @@
         }
         echo '<script>alert("Profile Picture has Been Updated!"); location.replace("../student/profile.php");</script>';
     }
-
-
+    
+    if($_POST['message'] == "reorder-classes")
+    {
+        if(isset($_POST['class-order-mypath-byname'])) $_SESSION['reorder-classes'] = "byname";
+        if(isset($_POST['class-order-mypath-byterm'])) $_SESSION['reorder-classes'] = "byterm";
+        if(isset($_POST['class-order-mypath-bysubject'])) $_SESSION['reorder-classes'] = "bysubject";
+        echo '<script>location.replace("../student/mypath.php");</script>';    
+    }
+   
+    
+    
     // ======================= FUNCTIONS ===================== //
     function passwords_match($a, $b)
     {
@@ -350,7 +359,10 @@
     {
         $c = connDB();
         //doube fucking join SQL query LET'S GOOOO!
-        $sql = "SELECT s.Class_CRN, s.Term, s.Year, s.Grade, s.Prof_ID, c.Subject, c.Number, c.Name, p.First_Name, p.Last_Name FROM Pupils s JOIN Class c ON c.CRN = s.Class_CRN JOIN Prof p ON p.ID = s.Prof_ID WHERE s.Student_ID = ".$student.";";  
+        if($_SESSION['reorder-classes'] == "byname") $sql = "SELECT s.Class_CRN, s.Term, s.Year, s.Grade, s.Prof_ID, c.Subject, c.Number, c.Name, p.First_Name, p.Last_Name FROM Pupils s JOIN Class c ON c.CRN = s.Class_CRN JOIN Prof p ON p.ID = s.Prof_ID WHERE s.Student_ID = ".$student." ORDER BY c.Name;";  
+        else if($_SESSION['reorder-classes'] == "byterm") $sql = "SELECT s.Class_CRN, s.Term, s.Year, s.Grade, s.Prof_ID, c.Subject, c.Number, c.Name, p.First_Name, p.Last_Name FROM Pupils s JOIN Class c ON c.CRN = s.Class_CRN JOIN Prof p ON p.ID = s.Prof_ID WHERE s.Student_ID = ".$student." ORDER BY s.Year, s.Term;";  
+        else if($_SESSION['reorder-classes'] == "bysubject") $sql = "SELECT s.Class_CRN, s.Term, s.Year, s.Grade, s.Prof_ID, c.Subject, c.Number, c.Name, p.First_Name, p.Last_Name FROM Pupils s JOIN Class c ON c.CRN = s.Class_CRN JOIN Prof p ON p.ID = s.Prof_ID WHERE s.Student_ID = ".$student." ORDER BY c.Subject, c.Number;";  
+        else $sql = "SELECT s.Class_CRN, s.Term, s.Year, s.Grade, s.Prof_ID, c.Subject, c.Number, c.Name, p.First_Name, p.Last_Name FROM Pupils s JOIN Class c ON c.CRN = s.Class_CRN JOIN Prof p ON p.ID = s.Prof_ID WHERE s.Student_ID = ".$student.";";  
         $s = $c -> prepare($sql);
         $s -> execute();
         $data = "";
