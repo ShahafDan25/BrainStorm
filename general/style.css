@@ -1,0 +1,22 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 2em;
+}
+
+h1 {
+  font-style: italic;
+  color: #373fff;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid black;
+  padding: 0.5rem;
+  text-align: center;
+}
+

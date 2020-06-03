@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,900;1,800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+}
+
+li,
+a,
+button {
+  font-family: "Poppin", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #edf0f1;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+}
+
+.logo {
+  cursor: pointer;
+  position: relative;
+  top: -5px;
+  left: 40px;
+}
+
+.nav_links {
+  list-style: none;
+}
+
+.nav_links li {
+  display: inline-block;
+  padding: 8px 20px;
+  position: relative;
+}
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+  color: #0088a9;
+}
+
+button {
+  padding: 6px 15px;
+  background-color: rgba(0, 136, 169, 1);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  left: -20px;
+}
+
+button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+@media all and (max-width: 968px) {
+  nav ul {
+    margin-right: 0px;
+    float: left;
+  }
+  nav .logo {
+    padding-left: 30px;
+    width: 100%;
+  }
+  .show + a,
+  ul {
+    display: none;
+  }
+  nav ul li,
+  nav ul ul li {
+    display: block;
+    width: 100%;
+  }
+  nav ul li a:hover {
+    box-shadow: none;
+  }
+  .show {
+    display: block;
+    color: white;
+    font-size: 18px;
+    padding: 0 20px;
+    line-height: 70px;
+    cursor: pointer;
+  }
+  .show:hover {
+    color: cyan;
+  }
+  .icon {
+    display: block;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 40px;
+    line-height: 70px;
+    cursor: pointer;
+    font-size: 25px;
+  }
+  nav ul ul {
+    top: 70px;
+    border-top: 0px;
+    float: none;
+    position: relative;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  nav ul ul a {
+    padding-left: 40px;
+  }
+  nav ul ul ul a {
+    padding-left: 80px;
+  }
+  nav ul ul ul li {
+    position: static;
+  }
+  [id^="btn"]:checked + ul {
+    display: block;
+  }
+  nav ul ul li {
+    border-bottom: 0px;
+  }
+  span.cancel:before {
+    content: "\f00d";
+  }
+}
+.content {
+  z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+header {
+  font-size: 35px;
+  font-weight: 600;
+  padding: 10px 0;
+}
+
+.slider-frame{
+  overflow: hidden;
+
+}
+
+@-webkit-keyframes slide_animation{
+  0% {left:0px;}
+  20% {left:0px;}
+  40% {left:2400px;}
+  60% {left:2400px;}
+  80% {left: 0px;}
+  100% {left:0px;}
+}
+
+.slide-images{
+  width: 3600px;
+  height: 800px;
+  margin: 0 0 0 -2400px;
+  position: relative;
+  -webkit-animation-name: slide_animation;
+  -webkit-animation-duration: 22s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  -webkit-animation-play-state: running;
+}
+
+.img-container{
+  height: 890px;
+  width: 1200px;
+  position: relative;
+  float: left;
+}
+
+
+p {
+  font-size: 30px;
+  font-weight: 500;
+}
