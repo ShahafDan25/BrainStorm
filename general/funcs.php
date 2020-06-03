@@ -39,17 +39,16 @@
 
     if($_POST['message'] == "comment")
     {
-        $_SESSION['crn'] = $_POST['classid'];
-        // we already have $_SESSION['student'];
-        $_SESSION['profID'] = $_POST['prof'];
-        echo '<script>location.replace("comment.php");</script>';
-
+        $r = $_SESSION['crn-comment'];
+        $_SESSION['crn-comment'] = $_POST['classid'];
+        $_SESSION['prof-comment'] = $_POST['prof'];
+        echo '<script>location.replace("../student/comment.php");</script>';
     }
 
     if($_POST['message'] == "submitComment")
     {
-        submitComment($_POST['rank'], $_POST['commentaryText']);
-        echo '<script>alert("");location.replace("mypath.html");</script>'; //NOTE: change later to PHP
+        submitComment($_POST['rank'], $_POST['commentary-text']);
+        echo '<script>alert("Comment Submitted! Thanks!");location.replace("../student/mypath.php");</script>'; //NOTE: change later to PHP
     }
 
     if($_POST['message'] == "signupstudent")
@@ -318,12 +317,12 @@
     {
         $c = connDB();
 
-        $sql2 = "SELECT MAX(ID)+1 FROM Comment;";
+        $sql2 = "SELECT MAX(ID)+1 FROM Student;";
         $s = $c -> prepare($sql2);
         $s -> execute();
         $max = $s -> fetchColumn();
 
-        $sql = "INSERT INTO Comment VALUES (".$max.", ".$_SESSION['student'].", ".$_SESSION['crn'].", ".$_SESSION['profID'].", ".$com.", ".$rate.", NOW());";
+        $sql = "INSERT INTO Comment VALUES (".$max.", ".$_SESSION['student'].", ".$_SESSION['crn-comment'].", ".$_SESSION['prof-comment'].", (SELECT College_ID FROM Prof WHERE ID = ".$_SESSION['prof-comment']."),NOW(), ".$rate.", '".$com."');";
         $c->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $c -> exec($sql);
         $c = null;
@@ -368,12 +367,12 @@
         $data = "";
         while($r = $s -> fetch(PDO::FETCH_ASSOC))
         {
-            $data .= "<form action = '../general/funcs' method = 'post'><tr>";
-                $data .= "<td><p name = 'classid' value = '".$r['Class_CRN']."'>".$r['Subject'].$r['Number']."</td>";
+            $data .= "<form action = '../general/funcs.php' method = 'post'><tr>";
+                $data .= "<td><input type = 'hidden' name = 'classid' value = '".$r['Class_CRN']."'>".$r['Subject'].$r['Number']."</p></td>";
                 $data .= "<td>".$r['Name']."</td>";
                 $data .= "<td>".$r['Term']." | ".$r['Year']."</td>";
                 $data .= "<td>".$r['Grade']."</td>";
-                $data .= "<td><p name = 'prof' value = '".$r['Prof_ID']."'>".$r['First_Name']. " ".$r['Last_Name']."</td>";
+                $data .= "<td><input type = 'hidden' name = 'prof' value = '".$r['Prof_ID']."'>".$r['First_Name']. " ".$r['Last_Name']."</p></td>";
                 $data .= "<td><input type='hidden' name='message' value='comment'><button class = 'btn btn-info'>Comment</button></td>";
             $data .= "</tr></form>";
         }

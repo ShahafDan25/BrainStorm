@@ -26,7 +26,7 @@
     background-color: #101010 !important;
     border: 2px solid #0088A9 !important;
 }
-.outerText{color:white !important;}
+/* .outerText{color:white !important;} */
 .sub-container {
     border: 4px solid #0088A9 !important;
     padding: 1% !important;
@@ -194,4 +194,13 @@ cursor: pointer;
 position: relative;
 top: -5px;
 left: 40px;
+}
+
+/* ------------ COMMENT PAGE --------------------- */
+.comment-text{
+    padding: 2% !important;
+    width: 100%;
+    height: 40%;
+    border: 1px solid black;
+
 }

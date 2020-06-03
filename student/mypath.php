@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">        
         <!-- CSS HARDCODE FILE LINK -->
         <link rel="stylesheet" type="text/css" href="student.css"> 
-         <!-- Bootstrap for JavaScript -->
-         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <!-- Bootstrap for JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- MORRIS.JS (for graphing utilities from PHP data) LINKS -->
@@ -29,12 +29,10 @@
         </header>
         <h1 class = "outerText">&nbsp; <?php echo nameByStudentID($_SESSION['student']); ?>'s Academic Path </h1>
         <h3 class = "outerText">&nbsp; @ <?php echo schoolByStudentID($_SESSION['student']);?> </h3>
-        <br>
         <div class = "container">
             <div class = "sub-container">
                 <h3 class = "inline pull-left"> My Classes </h3>                
                 <h3 class = "inline right"> GPA: <?php echo calcGPA($_SESSION['student']); ?> </h3>
-
                 <hr class = "sep">
                 <div class = "classesButtons">
                     <form action = "../general/funcs.php" method = "POST">
