@@ -72,11 +72,24 @@ button {
 button:active {
   transform: scale(0.95);
 }
-
+.inline{display: inline-block !important; display:flex; flex-direction: row;}
 button:focus {
   outline: none;
 }
-
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  /* padding: 30px 10%; */
+  /* font-size: 15px; */
+  font-weight: 600;
+  background-color: black !important;
+  text-align: center !important;
+  padding-right: 25% !important;
+  padding-left: 2% !important;
+  padding-top: 1.25% !important;
+  padding-bottom: 0.75% !important;
+}
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
