@@ -53,24 +53,60 @@
 
     if($_POST['message'] == "signupstudent")
     {
-        if(passwords_match($_POST['password'], $_POST['password-b']))
+        if(student_emailRegistered($_POST['email'])) echo '<script>alert(" Email Is Already Registered ... "); location.replace("../student/front.php");</script>';
+        else
         {
-            signupstudent($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['major'], $_POST['password'], $_POST['school']);
-            echo '<script>alert("Sign Up Succesfully!"); location.replace("../student/front.php");</script>';
+            if(passwords_match($_POST['password'], $_POST['password-b']))
+            {
+                signupstudent($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['major'], $_POST['password'], $_POST['school']);
+                echo '<script>alert("Sign Up Succesfully!"); location.replace("../student/front.php");</script>';
+            }
+            else  echo '<script>alert(" Passwords Did Not Match ... "); location.replace("../student/front.php");</script>';
         }
-        else  echo '<script>alert(" Passwords Did Not Match ... "); location.replace("../student/front.php");</script>';
+        
     }
 
     if($_POST['message'] == "loginstudent")
     {
-        if(loginStudent($_POST['email'], $_POST['password']))
+        if(isset($_POST['log-in'])) 
         {
-            noteLogIn($_POST['email']);
-            echo '<script>alert("welcome");</script>';
-            echo '<script>location.replace("../indexes/studentIndex.html");</script>';
+            if(loginStudent($_POST['email'], $_POST['password']))
+            {
+                noteLogIn($_POST['email']);
+                echo '<script>alert("welcome");</script>';
+                echo '<script>location.replace("../indexes/studentIndex.html");</script>';
+            }
+            else echo '<script>location.replace("../student/front.php");</script>';
         }
-        else echo '<script>location.replace("../student/front.php");</script>';
+        else if(isset($_POST['forgot-password']))
+        {
+            //generate new password
+            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $newpw = generate_string($permitted_chars, 10);
 
+            //update new password
+            echo update_student_password($newpw, $_POST['email']);
+
+            //send the email with the new password
+            // echo '<script>Email.send(
+            //     "dan.shachaf@gmail.com",
+            //     "'.$_POST['email'].'",
+            //     "Your New BrainStorm Password",
+            //     "Hello BrainStormer!
+            //         Your new password is:
+            //         '..'
+
+            //         Please make sure to update your password next time you sign in!",
+                
+
+                
+
+            // );</script>';
+
+            //alert the user
+            echo '<script>alert("Your New Password was sent to your email: '.$_POST['email'].'");</script>';
+        }
+        
     }
 
     if($_POST['message'] == "signupprof")
@@ -120,6 +156,18 @@
         else return false;
     }
     
+ 
+    function generate_string($input, $strength = 16) {
+        $input_length = strlen($input);
+        $random_string = '';
+        for($i = 0; $i < $strength; $i++) {
+            $random_character = $input[mt_rand(0, $input_length - 1)];
+            $random_string .= $random_character;
+        }
+     
+        return $random_string;
+    }
+
     // --------------- PROFESSOR -----------------//
     function newClass($class, $t, $y, $p, $g){
         $sql = "INSERT INTO Pupils VALUES (".$_SESSION['student'].", ".$class.", '".$t."', ".$y.", '".$g."', ".$p.", (SELECT College_ID FROM Student WHERE ID = ".$_SESSION['student']."));";
@@ -161,6 +209,23 @@
 
 
     // --------------- STUDENT -----------------//
+    function update_student_password($newpw, $em) {
+        $sql = "UPDATE Student SET password = '".$newpw."' WHERE Email = '".$em."';";
+        $c -> prepare($sql) -> execute();
+        return;
+    }
+    
+    function student_emailRegistered($e)
+    {
+        $c = connDB();
+        $sql = "SELECT Email FROM Student WHERE Email = '".$e."';";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+    
+        if(!$s -> fetch(PDO::FETCH_ASSOC)) return false;
+        else return true;
+    }
+    
     function updateProfilePicture($file){
         $c = connDB();
         $sql = "UPDATE Student SET picture = '".$file."' WHERE ID = ".$_SESSION['student'].";";

@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
         <title>BrainStorm - Student</title>
         <link rel="stylesheet" href="studLoginStyle.css" />
+        <script src="https://smtpjs.com/v2/smtp.js"></script> <!-- NOW WE CAN EASILT SEND EMAILS -->
     </head>
     <body>
 
@@ -32,7 +33,7 @@
                 <input type="text" placeholder="School Email" name="email"/>
                 <input type="text" placeholder="First Name" name="firstname"/>
                 <input type="text" placeholder="Last Name" name="lastname"/>
-                <select name = "subject" placeholder = " Subject" required> <?php echo populateSubjects(); ?> </select>
+                <select name = "major" placeholder = " Subject" required> <?php echo populateSubjects(); ?> </select>
                 <select name = "school" placeholder = " College / Institution" required> <?php echo populateSchools(); ?> </select>
                 <input type = "password" placeholder=" Password" name="password" id = "pwa" required>
                 <input type = "password" placeholder=" Verify Password" name="password-b" id = "pwb" required>
@@ -42,7 +43,7 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action = "../general/funcs.php" method = "POST">
+            <form action = "../general/funcs.php" method = "POST" id = "login-form">
                 <h1>Log In</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -53,8 +54,8 @@
                 <input type="email" placeholder="Email" name = "email"/>
                 <input type="password" placeholder="Password" name = "password"/>
                 <input type = "hidden" name = "message" value = "loginstudent">
-                <a href="#">Forgot your password?</a>
-                <button>Log In</button>
+                <!-- <button name = "forgot-password">--><a href="#">Forgot your password?</a><!-- <button> -->
+                <button name = "log-in">Log In</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -119,11 +120,5 @@
                 pwb.style = "border: 2px solid #39D300"; // : #D6D6D6 !important;";
             }
         }
-        $("#forgotPW").click(function(event)
-        {
-            event.preventDefault(); // cancel default behavior
-            //generate new 
-            //send email
-        });
     </script>
 </html>
