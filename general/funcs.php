@@ -88,7 +88,20 @@
             echo update_student_password($newpw, $_POST['email']);
 
             //send the email with the new password
-            // echo '<script>Email.send(
+            // echo '<script>
+            //     Email.send({
+            //         Host : "smtp.yourisp.com",
+            //         Username : "username",
+            //         Password : "password",
+            //         To : 'them@website.com',
+            //         From : "you@isp.com",
+            //         Subject : "This is the subject",
+            //         Body : "And this is the body"
+            //     }).then(
+            //     message => alert(message)
+            //     );
+            
+            // Email.send(
             //     "dan.shachaf@gmail.com",
             //     "'.$_POST['email'].'",
             //     "Your New BrainStorm Password",
@@ -97,6 +110,8 @@
             //         '..'
 
             //         Please make sure to update your password next time you sign in!",
+            //         "smtp.yourisp.com",
+
                 
 
                 
