@@ -1,6 +1,7 @@
 <?php //@ob_start(); 
  //session_start();
- include "../general/funcs.php";?> 
+ include "../general/funcs.php";
+ $_SESSION['class-selected'] = false; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +19,9 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+        <!--  JQUERY BOOTSTRAP --> 
+        
+
     </head>
     <body class = "profileBody">
         <header>
@@ -32,17 +36,16 @@
                 <h3> Select a Class to Explore </h3>
                 <hr class = "sep">
                 <form action = "../general/explore.php" method = "POST">
-                    <select name = "school">
-                        <option value = "<?php echo schoolIDByStudentID($_SESSION['student']); ?>" selected disabled hidden>Select a School</option>
-                        <?php populateSchools(); ?>
+                    <select name = "school" id = "colleges">
+                        <option value = "<?php echo schoolIDByStudentID($_SESSION['student']); ?>" selected disabled hidden><?php echo schoolByStudentID($_SESSION['student']); ?></option>
+                        <?php echo populateSchools(); ?>
                     </select>
-                    <select name = "subject">
+                    <select name = "subject" onchange = "getSelectedSubject(this.value, document.getElementById('colleges').value);">
                         <option value = "none" selected disabled hidden>Select a Subject</option>
-                        <!-- <?php echo populateSubjects(); ?> -->
+                        <?php echo populateSubjects(); ?>
                     </select>
-                    <select name = "class">
+                    <select name = "class" id = "classes">
                         <option value = "none" selected disabled hidden>Select a Class</option>
-                        <!-- <?php echo classesBySubjectBySchool(schoolIDByStudentID($_SESSION['student']), $subject) ?> -->
                     </select>
                     <input type = "hidden" name = "message" value = "explore-class">
                     <button class = "btn btn-success">SUBMIT</button>
@@ -57,4 +60,16 @@
             ?>
         </div>
     </body>
+    <script>
+        function getSelectedSubject(subjectVal, schoolVal){
+            $.ajax({
+                type: "POST",
+                url: "../general/funcs.php",
+                data: {subject: subjectVal, school: schoolVal, message: "populateDynamicClassDropDown"},
+                success: function(data){
+                    $("#classes").html(data);
+                }
+            });
+        }
+    </script>
 </html>

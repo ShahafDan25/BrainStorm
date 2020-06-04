@@ -162,7 +162,13 @@
         echo '<script>location.replace("../student/mypath.php");</script>';    
     }
    
-    
+    if($_POST['message'] == "explore-class") {
+        $_SESSION['class-selected'] = true;
+    }
+
+    if($_POST['message'] == "populateDynamicClassDropDown") {
+        echo classesBySubjectBySchool($_POST['school'], $_POST['subject']);
+    }
     
     // ======================= FUNCTIONS ===================== //
     function passwords_match($a, $b)
@@ -225,13 +231,14 @@
 
     // --------------- STUDENT -----------------//
     function classesBySubjectBySchool($school, $subject){
+        // echo '<script>alert("Here are the classes: '.$school.$subject.'");</script>';
         $c = connDB();
-        $sql = "SELECT Name, Number FROM Class WHERE College_ID = ".$school." AND Subject = ".$subject.";";
+        $sql = "SELECT Name, Number FROM Class WHERE College_ID = ".$school." AND Subject = '".$subject."';";
         $s = $c -> prepare($sql);
         $s -> execute();
         $data = "";
         while($r = $s -> fetch(PDO::FETCH_ASSOC)){
-            $data .= "<option value = '".$r['Number']."'>".$r['Name']. " - ".$subject.$r['Number']."</option>";
+            $data .= "<option value = ".$r['Number'].">".$r['Name']. " - ".$subject.$r['Number']."</option>";
         }
         return $data;
     }
