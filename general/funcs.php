@@ -224,6 +224,28 @@
 
 
     // --------------- STUDENT -----------------//
+    function classesBySubjectBySchool($school, $subject){
+        $c = connDB();
+        $sql = "SELECT Name, Number FROM Class WHERE College_ID = ".$school." AND Subject = ".$subject.";";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $data = "";
+        while($r = $s -> fetch(PDO::FETCH_ASSOC)){
+            $data .= "<option value = '".$r['Number']."'>".$r['Name']. " - ".$subject.$r['Number']."</option>";
+        }
+        return $data;
+    }
+
+    function schoolIDByStudentID($student)
+    {
+        $c = connDB();
+        $sql = "SELECT College_ID FROM Student WHERE ID = ".$student.";";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['College_ID'];
+    }
+
     function update_student_password($newpw, $em) {
         $sql = "UPDATE Student SET password = '".$newpw."' WHERE Email = '".$em."';";
         $c -> prepare($sql) -> execute();
