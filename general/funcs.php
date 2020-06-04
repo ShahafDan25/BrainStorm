@@ -164,10 +164,21 @@
    
     if($_POST['message'] == "explore-class") {
         $_SESSION['class-selected'] = true;
+        $_SESSION['explore-college'] = $_POST['school'];
+        $_SESSION['explore-class-number'] = $_POST['class'];
+        $_SESSION['explore-subject'] = $_POST['subject'];
+        $_SESSION['explore-prof'] = $_POST['prof'];
+
+        echo '<script>location.replace("../student/explore.php");</script>';
     }
 
     if($_POST['message'] == "populateDynamicClassDropDown") {
         echo classesBySubjectBySchool($_POST['school'], $_POST['subject']);
+    }
+
+    if($_POST['message'] == "populateDynamicProfDropDown") {
+        echo profsBySubjectNubmerSchool($_POST['number'], $_POST['subject'], $_POST['school']);
+
     }
     
     // ======================= FUNCTIONS ===================== //
@@ -230,13 +241,25 @@
 
 
     // --------------- STUDENT -----------------//
+    function profsBySubjectNubmerSchool($num, $sub, $sch) {
+        $c = connDB();
+        $sql = "SELECT p.First_Name, p.Last_Name, p.ID FROM Prof p JOIN ProfClass pc ON pc.Prof_ID = p.ID JOIN Class c ON c.CRN = pc.Class_CRN WHERE c.Subject = '".$sub."' AND c.Number = ".$num." AND pc.College_ID = ".$sch.";";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $data = "<option value = 'none' selected disabled hidden>Select Instructor</option>";
+        while($r = $s -> fetch(PDO::FETCH_ASSOC)) {
+            $data .= '<option value = '.$r['ID'].'>'.$r['First_Name'].' '.$r['Last_Name'].'</option>';
+        }
+        return $data;
+    }
+    
     function classesBySubjectBySchool($school, $subject){
         // echo '<script>alert("Here are the classes: '.$school.$subject.'");</script>';
         $c = connDB();
         $sql = "SELECT Name, Number FROM Class WHERE College_ID = ".$school." AND Subject = '".$subject."';";
         $s = $c -> prepare($sql);
         $s -> execute();
-        $data = "";
+        $data = "<option value = 'none' selected disabled hidden>Select a Class</option>";
         while($r = $s -> fetch(PDO::FETCH_ASSOC)){
             $data .= "<option value = ".$r['Number'].">".$r['Name']. " - ".$subject.$r['Number']."</option>";
         }

@@ -1,7 +1,7 @@
 <?php //@ob_start(); 
  //session_start();
  include "../general/funcs.php";
- $_SESSION['class-selected'] = false; ?>
+//  $_SESSION['class-selected'] = false; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,32 +35,37 @@
             <div class = "sub-container">
                 <h3> Select a Class to Explore </h3>
                 <hr class = "sep">
-                <form action = "../general/explore.php" method = "POST">
-                    <select name = "school" id = "colleges">
+                <form action = "../general/funcs.php" method = "POST">
+                    <select name = "school" id = "colleges" required>
                         <option value = "<?php echo schoolIDByStudentID($_SESSION['student']); ?>" selected disabled hidden><?php echo schoolByStudentID($_SESSION['student']); ?></option>
                         <?php echo populateSchools(); ?>
                     </select>
-                    <select name = "subject" onchange = "getSelectedSubject(this.value, document.getElementById('colleges').value);">
+                    <select required name = "subject" onchange = "getSelectedSubject(this.value, document.getElementById('colleges').value);" id = "subject">
                         <option value = "none" selected disabled hidden>Select a Subject</option>
                         <?php echo populateSubjects(); ?>
                     </select>
-                    <select name = "class" id = "classes">
+                    <select required name = "class" id = "classes" onchange = "getDynamicProfByClass(this.value, document.getElementById('colleges').value, document.getElementById('subject').value);">
                         <option value = "none" selected disabled hidden>Select a Class</option>
+                    </select>
+                    <select name = "prof" id = "profs" required>
+                        <option value = "none" selected disabled hidden>Select Instructor</option>
                     </select>
                     <input type = "hidden" name = "message" value = "explore-class">
                     <button class = "btn btn-success">SUBMIT</button>
                 </form>
             </div>
-            <?php if($_SESSION['class-selected']) 
+            <br>
+            <?php if($_SESSION['class-selected'] == true) 
                 {
                     echo '<div class = "sub-container">';
-
+                    echo '<h3>Read About</h3>';
                     echo '</div>';
                 }
             ?>
         </div>
     </body>
     <script>
+        //dynamically populate classes (bu subject, school)
         function getSelectedSubject(subjectVal, schoolVal){
             $.ajax({
                 type: "POST",
@@ -68,6 +73,17 @@
                 data: {subject: subjectVal, school: schoolVal, message: "populateDynamicClassDropDown"},
                 success: function(data){
                     $("#classes").html(data);
+                }
+            });
+        }
+        //dynamically populate professors (by class, subject, school)
+        function getDynamicProfByClass(classNumber, college, major){
+            $.ajax({
+                type: "POST",
+                url: "../general/funcs.php",
+                data: {number: classNumber, school: college, subject: major, message: "populateDynamicProfDropDown"},
+                success: function(data){
+                    $("#profs").html(data);
                 }
             });
         }
