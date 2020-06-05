@@ -58,8 +58,26 @@
             <?php if($_SESSION['class-selected'] == true) 
                 {
                     echo '<div class = "sub-container">';
-                    echo '<h3>Read About</h3>';
+                    echo '<h4>'.classNameBySubjectNumberCollege($_SESSION['explore-subject'], $_SESSION['explore-class-number'], $_SESSION['explore-college']).' : '.$_SESSION['explore-subject'].$_SESSION['explore-class-number'].'</h4><br>';
+                    echo '<h6> By'.profNameByProfIDCollegeID($_SESSION['explore-prof'], $_SESSION['explore-college']).' at '.collegeNameByCollegeID($_SESSION['explore-college']).'</h6><hr>';
+                    echo populateCommentsTable($_SESSION['explore-college'], $_SESSION['explore-prof'], classCRNBySubjectNumberCollege($_SESSION['explore-subject'], $_SESSION['explore-class-number'], $_SESSION['explore-college']));
                     echo '</div>';
+                    echo '<br>';
+                    echo '<div class = "sub-container">';
+                    echo '<div id = "class-rating-graph"></div>';
+                    // echo '<script>
+                    
+                    // Morris.Line({
+                    //     element : 'chart', 
+                    //     data:[<?php echo $attGraphData;], 
+                    //     xkey:'TIME',
+                    //     ykeys:['AMOUNT'],
+                    //     labels:['Attendance'],
+                    //     hideHover:'auto',
+                    //     stacked:true
+                    // });
+                    
+                    // </script>';
                 }
             ?>
         </div>

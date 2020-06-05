@@ -188,7 +188,6 @@
         else return false;
     }
     
- 
     function generate_string($input, $strength = 16) {
         $input_length = strlen($input);
         $random_string = '';
@@ -198,6 +197,77 @@
         }
      
         return $random_string;
+    }
+
+    function classNameBySubjectNumberCollege($sub, $col, $num) {
+        $c = connDB();
+        $sql = "SELECT Name FROM Class WHERE Subject = '".$sub."' AND Number = ".$num." AND College_ID = ".$col.";";
+        $c -> prepare($sql);
+        $s = $c -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['Name'];
+    }
+
+    function collegeNameByCollegeID($coll) {
+        $sql = "SELECT Name FROM College WHERE ID = ".$coll.";";
+        $c -> prepare($sql);
+        $s = $c -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['Name'];
+    }
+
+    function classCRNBySubjectNumberCollege($sub, $col, $num) {
+        $c = connDB();
+        $sql = "SELECT CRN FROM Class WHERE Subject = '".$sub."' AND Number = ".$num." AND College_ID = ".$col.";";
+        $c -> prepare($sql);
+        $s = $c -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['CRN'];
+    }
+
+    function dateFormatTimeStamp($timestamp)
+    {
+        $months = array('Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.');
+        $newformat = $months[intval(substr($timestamp, 5, 2))-1].' '.substr($timestamp, 8, 2).', '.substr($timestamp, 0, 4);
+        return $newformat;
+    }
+
+    function populateCommentsTable($col, $prof, $crn) {
+        $colors = array("FF7E7E", "#FCA0A0", "#FCCEA0", "FCE0A0", "EFFF87", "#FCFCA0", "#CEFCA0", "#A0FCA0", "#A0FCCE", "#A0C3FC");
+        $c = connDB();
+        $sql = "SELECT ID, Student_ID, TimeStamp, Rating, Text FROM Comment WHERE Class_CRN = ".$crn." AND College_ID = ".$col." AND Prof_ID = ".$prof." LIMIT 12;";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $data = "";
+        if($r = $s -> fetch(PDO::FETCH_ASSOC)) { //which means there is at least one comment on that course
+            $data .= '<table class = "table">
+                <thead>
+                    <tr>
+                        <th> Feedbacker </th>
+                        <th> Rating </th>
+                        <th> Comment </th>
+                        <th> Date </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>'.nameByStudentID($r['Student_ID']).'</td>
+                        <td><div style = "background-color: '.$colors[($r['Rating']-1)].' !important; border-radius:8px; border: 2px solid black; padding: 20% !important; text-align:center;">'.$r['Rating'].'</div></td>
+                        <td>'.$r['Text'].'</td>
+                        <td>'.dateFormatTimeStamp($r['TimeStamp']).'<td>
+                    <tr>';
+            while($r = $s -> fetch(PDO::FETCH_ASSOC)) {
+                $data .= '<tr>
+                    <td>'.nameByStudentID($r['Student_ID']).'</td>
+                    <td><div style = "background-color: '.$colors[($r['Rating']-1)].' !important; border-radius:8px; border: 2px solid black; padding: 20% !important; text-align:center;">'.$r['Rating'].'</div></td>
+                    <td>'.$r['Text'].'</td>
+                    <td>'.dateFormatTimeStamp($r['TimeStamp']).'<td>
+                <tr>';
+            }
+            $data .= '</tbody></table>';
+        }
+        else $data .= '<h5> Sorry, No Comments were recorded yet about this class... </h5>';
+        return $data;
     }
 
     // --------------- PROFESSOR -----------------//
@@ -237,6 +307,14 @@
         $c = null;
         if($r['password'] == $p) return true;
         else return false;
+    }
+
+    function profNameByProfIDCollegeID($prof, $coll) {
+        $sql = "SELECT First_Name, Last_Name FROM Prof WHERE College_ID = '".$coll."' AND ID = ".$prof.";";
+        $c -> prepare($sql);
+        $s = $c -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['First_Name']." ".$r['Last_Name'];
     }
 
 
