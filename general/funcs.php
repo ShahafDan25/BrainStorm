@@ -176,8 +176,15 @@
     }
 
     if($_POST['message'] == "contact-us") {
-        mail()
-        
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        if($_POST['school'] == NULL)  $school = "an unmentioned institution";
+        else $school = $_POST['school'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+        //NOTE: FIX THIS LATER!!
+        mail("our.brainStorm@email.com", "Contact Us: ".$subject, $message, "From: ".$name." ( ".$email." ), at ".$school) or die("Could not send your message");
+        echo '<script>alert("Your message has been sent! \r\n A response will be shortly sent to your email"); location.replace("../indexes/mainIndex.html");</script>';
     }
     // ======================= FUNCTIONS ===================== //
 

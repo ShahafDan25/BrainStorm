@@ -1,3 +1,4 @@
+<?php include "../general/funcs.php" ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,27 +31,30 @@
                 <form action = "../general/funcs.php" method = "POST" id = "contact-us-form">
                     <label class = "contact-us-label">
                         Name<br>
-                        <input type = "text" name = "name" class = "contact-input">
+                        <input type = "text" name = "name" class = "contact-input" required>
                     </label><br>
                     <label class = "contact-us-label">
                         School Email<br>
-                        <input type = "text" name = "email" class = "contact-input">
+                        <input type = "text" name = "email" class = "contact-input" required>
                     </label><br>
                     <label class = "contact-us-label">
-                        School<br>
-                        <input type = "text" name = "school" class = "contact-input">
+                        School
+                        <select name = "school" class = "contact-input">
+                            <option value = "none" selected disabled hidden> </option>
+                            <?php echo populateSchools(); ?>
+                        </select>
                     </label><br>
                     <label class = "contact-us-label">
                         Subject<br>
-                        <input type = "text" name = "subject" class = "contact-input">
+                        <input type = "text" name = "subject" class = "contact-input" required>
                     </label><br>
                     <label class = "contact-us-label">
                         Message<br>
-                        <textarea name = "message" class = "contact-input"></textarea>
+                        <textarea name = "message" class = "contact-input" required></textarea>
                     </label><br><br>
                     <!-- <label> ADD THIS LATER (?)
                         Attach Files
-                        <input type = "text" name = "name" class = "contact-input">
+                        <input type = "file" name = "file" class = "contact-input">
                     </label> -->
                     <input type = "hidden" name = "message" value = "contact-us">
                     <button class = "btn btn-success" style = "width: 100% !important;"> Submit </button>
@@ -58,9 +62,4 @@
             </div>
         </section>
     </body>
-    <script>
-        $("#contact-us-form").onsubmit = function() {
-            alert("Your message has been sent! \r\n ")
-        }
-    </script>
 </html>
