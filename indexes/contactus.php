@@ -57,7 +57,7 @@
                         <input type = "file" name = "file" class = "contact-input">
                     </label> -->
                     <input type = "hidden" name = "message" value = "contact-us">
-                    <button class = "btn btn-success" style = "width: 100% !important;"> Submit </button>
+                    <button class = "btn-submit-contact"> Submit </button>
                 </form>
             </div>
         </section>
