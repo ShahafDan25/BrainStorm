@@ -1,0 +1,102 @@
+.left{float:left !important;}
+.right{float: right !important;}
+.centrize{text-align: center;}
+.inline{display: inline-block !important; display:flex; flex-direction: row;}
+.profile-body {background-color: #303030 !important;}
+.navBtn:hover{
+    background-color: #303030 !important;
+    border: 2px solid #0088A9 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 5px #33FFFF, 0 0 10px #66FFFF;
+}
+.sub-container {
+    border: 4px solid #0088A9 !important;
+    padding: 1% !important;
+    background-color: white;
+    border-radius: 7px;
+}
+.navBtn{
+    width: 12% !important;
+    color: white !important;
+    background-color: black !important;
+    border: 0px solid black;
+    padding-right: 1.45% !important;
+    padding-left: 1.45% !important;
+    padding-top: 0.5% !important;
+    padding-bottom: 0.5% !important;
+    font-size: 120% !important;
+}
+.profile{
+    height: 100% !important;
+    padding: 2% !important;
+    text-align: center;
+}
+.card {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
+    width: 30% !important;
+    margin: auto;
+    height: 50% !important;
+    text-align: center;
+    font-family: arial;
+}
+.profileImageInputContainer{
+    width: 100% !important;
+    text-align:center;
+}
+.profileImageInput {
+    width: 25% !important;
+    border: 2px solid #303030;
+    text-align: center;
+    border-radius: 150px !important;
+}
+.profileImageInput:hover {
+    box-shadow: 0 0 5px #33FFFF, 0 0 10px #66FFFF;
+}
+.profile-btn{
+    margin-top: 1% !important;
+    margin-right: 10% !important;
+    margin-left: 10% !important;
+}
+.profile-picture {
+    height: 100% !important;
+    width: 35% !important;
+    border-radius: 150px !important;
+    border: 2px solid black !important;
+
+    /* border: 1px solid black !important; */
+}
+.profile-picture-container {
+    padding-top: 2% !important;
+    height: 40% !important;
+    text-align:center !important;
+    width: 100% !important;
+}
+.profile-section{
+    width: 100% !important;
+    background-color: white;
+    /* background-image: url(../indexes/img/wave.svg); */
+    border: 2px solid #0088A9 !important;
+    padding: 1% !important;
+    border-radius: 7px !important;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+    /* padding: 30px 10%; */
+    /* font-size: 15px; */
+    font-weight: 600;
+    background-color: black !important;
+    text-align: center !important;
+    padding-right: 10% !important;
+    padding-left: 2% !important;
+    padding-top: 1.25% !important;
+    padding-bottom: 0.75% !important;
+}
+.logo {
+cursor: pointer;
+position: relative;
+top: -5px;
+left: 40px;
+}
