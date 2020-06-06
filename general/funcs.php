@@ -88,38 +88,15 @@
             echo update_student_password($newpw, $_POST['email']);
 
             //send the email with the new password
-            // echo '<script>
-            //     Email.send({
-            //         Host : "smtp.yourisp.com",
-            //         Username : "username",
-            //         Password : "password",
-            //         To : 'them@website.com',
-            //         From : "you@isp.com",
-            //         Subject : "This is the subject",
-            //         Body : "And this is the body"
-            //     }).then(
-            //     message => alert(message)
-            //     );
-            
-            // Email.send(
-            //     "dan.shachaf@gmail.com",
-            //     "'.$_POST['email'].'",
-            //     "Your New BrainStorm Password",
-            //     "Hello BrainStormer!
-            //         Your new password is:
-            //         '..'
+            $content = "Hello BrainStormer!
+                    Your new password is:
+                    '".$newpw."'
 
-            //         Please make sure to update your password next time you sign in!",
-            //         "smtp.yourisp.com",
-
-                
-
-                
-
-            // );</script>';
+                    Please make sure to update your password next time you sign in!";
+            mail($_POST['email'], "Your New BrainStorm Password", $content, "From the BrainStorm company \r\n") or die("Could not send the email");
 
             //alert the user
-            echo '<script>alert("Your New Password was sent to your email: '.$_POST['email'].'");</script>';
+            echo '<script>alert("Your New Password was sent to your email: '.$_POST['email'].'");location.replace("../student/front.php");</script>';
         }
         
     }
@@ -198,6 +175,10 @@
         echo '<script>location.replace("../prof/profile.php");</script>';
     }
 
+    if($_POST['message'] == "contact-us") {
+        mail()
+        
+    }
     // ======================= FUNCTIONS ===================== //
 
     function passwords_match($a, $b)
@@ -565,16 +546,13 @@
         return $r['Major'];
     }
 
-    function noteLogIn($e)
-    {
+    function noteLogIn($e){
         $sql = "SELECT ID FROM Student WHERE Email = '".$e."';";
         $c = connDB();
         $s = $c -> prepare($sql);
         $s -> execute();
         $r = $s -> fetch(PDO::FETCH_ASSOC);
-        $_SESSION['student'] = $r['ID'];
-        // $sql = "UPDATE Student SET LoggedIn = 1 WHERE Email = '".$e."';";
-        // $c -> prepare($sql) -> execute();
+        $_SESSION['student'] = $r["ID"];
         $c = null;
         return;
     }
@@ -606,7 +584,7 @@
         $c = null;
         if($r['password'] == $p) 
         {
-            if($r['LoggedIn'] == 1)
+            if($r["LoggedIn"] == 1)
             {
                 echo '<script>alert("You are already logged in!");</script>';
                 return false;

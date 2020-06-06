@@ -1,0 +1,89 @@
+.BG{
+  height: 111%;
+  width: 100%;
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(../indexes/img/bg02.jpg);
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+}
+.container {
+    padding-top: 10% !important;
+
+}
+.form-container {
+  /* z-index: 850; */
+  border: 0.7 solid black;
+  border-radius: 4px;
+  background: white;
+  box-shadow: antiquewhite;
+  height: 70% !important;
+  padding: 2% !important;
+  width: 100% !important;
+}
+.contact-input {
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 0.7px solid #303030; 
+  width: 100% !important;
+}
+.contact-us-label {
+  width: 95% !important;
+}
+.contact-input:focus{
+  border-bottom: 4.5px solid #66FFFF !important;
+  outline: none;
+  padding-top: 2% !important;
+  transition: border-bottom 0.25s ease-in-out;
+  transition: padding-top 0.3s ease-out;
+  /* width: 100% !important; */
+}
+/* Header */
+.inline{display: inline-block !important; display:flex; flex-direction: row;}
+.navBtn{
+  width: 12% !important;
+  color: white !important;
+  background-color: black !important;
+  border: 0px solid black;
+  padding-right: 1.45% !important;
+  padding-left: 1.45% !important;
+  padding-top: 0.5% !important;
+  padding-bottom: 0.5% !important;
+  font-size: 120% !important;
+}
+button:hover{
+  box-shadow: 0 0 5px #33FFFF, 0 0 10px #66FFFF;
+  border: 2px solid black !important;
+}
+.navBtn:hover{
+  background-color: #303030 !important;
+  border: 2px solid #0088A9 !important;
+  color: white !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 5px #33FFFF, 0 0 10px #66FFFF;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  /* padding: 30px 10%; */
+  /* font-size: 15px; */
+  font-weight: 600;
+  background-color: black !important;
+  text-align: center !important;
+  padding-right: 10% !important;
+  padding-left: 2% !important;
+  padding-top: 1.25% !important;
+  padding-bottom: 0.75% !important;
+}
+.logo {
+cursor: pointer;
+position: relative;
+top: -5px;
+left: 40px;
+margin-right: 8% !important;
+}
+
+/* .left{float:left !important;} */
+
