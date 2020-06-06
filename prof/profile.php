@@ -45,7 +45,7 @@
                             Update Profile Picture
                             <input hidden = true type = "file" name = "image" id = "image" accept = ".jpeg,.JPG,.PNG">
                         </label>
-                        <input type = "hidden" name = "message" value = "update-profile-picture">
+                        <input type = "hidden" name = "message" value = "update-prof-profile-picture">
                     </form>
                 </div>
             </div>

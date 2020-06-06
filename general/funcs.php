@@ -181,6 +181,18 @@
 
     }
     
+    if($_POST['message'] == "update-prof-profile-picture"){
+        $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"])); 
+        $fileSize = $_FILES['image']['size'];
+        $fileError = $_FILES['image']['error']; 
+        if($fileError === 0)
+        {
+            if($fileSize > 6000000) echo '<script>alert("Image Must Be Less than 6MB");</script>';
+            else updateProfProfilePicture($file);
+        }
+        echo '<script>alert("Profile Picture has Been Updated!"); location.replace("../prof/profile.php");</script>';
+    }
+
     // ======================= FUNCTIONS ===================== //
     function passwords_match($a, $b)
     {
@@ -345,6 +357,13 @@
         return $r['First_Name']." ".$r['Last_Name'];
     }
 
+    function updateProfProfilePicture($file) {
+        $c = connDB();
+        $sql = "UPDATE Prof SET picture = '".$file."' WHERE ID = ".$_SESSION['profID'].";";
+        $c -> prepare($sql) -> execute();
+        $c = null;
+        return;
+    }
 
     // --------------- STUDENT -----------------//
     function profsBySubjectNubmerSchool($num, $sub, $sch) {
