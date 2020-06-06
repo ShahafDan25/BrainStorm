@@ -52,7 +52,7 @@
                             <input type = "hidden" name = "message" value = "update-prof-profile-picture">
                         </form>
                         <button class = "btn btn-warning inline" id = "update-bio">Biography</button>
-                        <button class = "btn btn-light inline" id = "update-school" > Schoo; </button> <!-- OPTION FOR LATER: will need to modify datamodel with history table of schools -->
+                        <button class = "btn btn-dark inline" id = "update-school" > School </button> <!-- OPTION FOR LATER: will need to modify datamodel with history table of schools -->
                         <!-- <button class = "navBtn inline" onclick = "location.replace('../student/explore.php');" >Explore</button> -->
                     </header>
                 </div>
@@ -79,7 +79,7 @@
         document.getElementById("update-bio").onclick = function() {
             var bio = document.getElementById("biography-text");
             bio.innerHTML = ""; //clear content from biography div
-            bio.innerHTML = "<form action = '../general/funcs.php' method = 'POST'><textarea style = 'width:100% !important;'></textarea><input type = 'hidden' name = 'message' value = 'update-bio'><button class = 'btn btn-success'>Submit</button></form>";
+            bio.innerHTML = "<form action = '../general/funcs.php' method = 'POST'><textarea style = 'width:100% !important;' name = 'new-bio'></textarea><input type = 'hidden' name = 'message' value = 'update-bio'><button class = 'btn btn-success'>Submit</button></form>";
         }
     </script>
 </html>

@@ -193,6 +193,11 @@
         echo '<script>alert("Profile Picture has Been Updated!"); location.replace("../prof/profile.php");</script>';
     }
 
+    if($_POST['message'] == "update-bio") {
+        updateBio($_SESSION['profID'], $_POST['new-bio']);
+        echo '<script>location.replace("../prof/profile.php");</script>';
+    }
+
     // ======================= FUNCTIONS ===================== //
 
     function passwords_match($a, $b)
@@ -404,6 +409,13 @@
         return;
     }
 
+    function updateBio($prof, $bio) {
+        $c = connDB();
+        $sql = "UPDATE Prof SET Biography = '".$bio."' WHERE ID = ".$prof.";";
+        $c -> prepare($sql) -> execute();
+        return;
+    }
+
     // --------------- STUDENT -----------------//
     function profsBySubjectNubmerSchool($num, $sub, $sch) {
         $c = connDB();
@@ -412,13 +424,12 @@
         $s -> execute();
         $data = "<option value = 'none' selected disabled hidden>Select Instructor</option>";
         while($r = $s -> fetch(PDO::FETCH_ASSOC)) {
-            $data .= '<option value = '.$r['ID'].'>'.$r['First_Name'].' '.$r['Last_Name'].'</option>';
+            $data .= '<option value = '.$r["ID"].'>'.$r["First_Name"].' '.$r["Last_Name"].'</option>';
         }
         return $data;
     }
     
     function classesBySubjectBySchool($school, $subject){
-        // echo '<script>alert("Here are the classes: '.$school.$subject.'");</script>';
         $c = connDB();
         $sql = "SELECT Name, Number FROM Class WHERE College_ID = ".$school." AND Subject = '".$subject."';";
         $s = $c -> prepare($sql);
