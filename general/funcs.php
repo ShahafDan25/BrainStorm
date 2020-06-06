@@ -271,6 +271,17 @@
     }
 
     // --------------- PROFESSOR -----------------//
+    function getProfProfilePic($prof) {
+        $c = connDB();
+        $sql = "SELECT picture FROM Prof WHERE ID = ".$prof.";";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        $c = null;
+        if($r['picture'] == "NULL") return "../indexes/img/profileTemplate.png";
+        return $r['picture'];
+    }
+    
     function newClass($class, $t, $y, $p, $g){
         $sql = "INSERT INTO Pupils VALUES (".$_SESSION['student'].", ".$class.", '".$t."', ".$y.", '".$g."', ".$p.", (SELECT College_ID FROM Student WHERE ID = ".$_SESSION['student']."));";
         $c = connDB();
@@ -280,7 +291,24 @@
         return;
     }
 
-    
+    function nameByProfID($prof) {
+        $sql = "SELECT First_Name, Last_Name FROM Prof WHERE ID = ".$prof.";";
+        $c = connDB();
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['First_Name']." ".$r['Last_Name'];
+    }
+
+    function schoolByProfID($prof) {
+        $sql = "SELECT c.Name FROM College c JOIN Prof s ON c.ID = s.College_ID WHERE s.ID = ".$prof.";";
+        $c = connDB();
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        return $r['Name'];
+    }
+
     function signupprof($em, $fn, $ln, $sc, $pw, $sj){
         $c = connDB();
 

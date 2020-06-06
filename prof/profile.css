@@ -3,6 +3,15 @@
 .centrize{text-align: center;}
 .inline{display: inline-block !important; display:flex; flex-direction: row;}
 .profile-body {background-color: #303030 !important;}
+.sep{
+    color: #303030 !important;
+    border: 2px solid #303030 !important;
+}
+.shorter-hr{
+    margin-right: 12% !important;
+    margin-left: 12% !important;
+    width: 76% !important;
+}
 .navBtn:hover{
     background-color: #303030 !important;
     border: 2px solid #0088A9 !important;

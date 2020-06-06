@@ -33,14 +33,13 @@
                 <div class = "card centrize left">
                     <div class = "centrize profile-picture-container">
                         <?php 
-                            if(getProfilePic($_SESSION['student']) == NULL) echo '<img class = "profile-picture" src="../indexes/img/profileTemplate.png"/>';
-                            else echo '<img class = "profile-picture" src="data:image/jpeg;base64,'.base64_encode(getProfilePic($_SESSION['student'])).'"/>';
+                            if(getProfProfilePic($_SESSION['profID']) == NULL) echo '<img class = "profile-picture" src="../indexes/img/profileTemplate.png"/>';
+                            else echo '<img class = "profile-picture" src="data:image/jpeg;base64,'.base64_encode(getProfProfilePic($_SESSION['profID'])).'"/>';
                         ?>
                     </div>
                     <hr class = "sep shorter-hr">
-                    <h4><?php echo nameByStudentID($_SESSION['student']) ?></h4>
-                    <h6><?php echo majorByStudentID($_SESSION['student']); ?></h6>
-                    <p>@ <?php echo schoolByStudentID($_SESSION['student']); ?></p> 
+                    <h4><?php echo nameByProfID($_SESSION['profID']); ?></h4>
+                    <p>@ <?php echo schoolByProfID($_SESSION['profID']); ?></p> 
                     <form action = "../general/funcs.php" method = "post" enctype="multipart/form-data" id ="form">
                         <label class = "btn btn-info profile-btn">
                             Update Profile Picture
