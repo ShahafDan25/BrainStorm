@@ -25,8 +25,7 @@
         <header>
           <!-- EDIT THIS WHEN CHANGING FROM GLITCH -->
             <a><img class="logo" src="../indexes/img/BsProf.png" alt="logo" href="../indexes/profIndex.html" onclick = "location.replace('../indexes/profIndex.html');"/></a>
-            <button class = "navBtn inline" onclick = "location.replace('../student/mypath.php');" >My Path</button>
-            <button class = "navBtn inline" onclick = "location.replace('../student/explore.php');" >Explore</button>
+            <!-- <button class = "navBtn inline" onclick = "location.replace('../student/explore.php');" >Explore</button> -->
         </header>
         <div class = "profile">
             <div class = "profile-section inline">
@@ -40,13 +39,22 @@
                     <hr class = "sep shorter-hr">
                     <h4><?php echo nameByProfID($_SESSION['profID']); ?></h4>
                     <p>@ <?php echo schoolByProfID($_SESSION['profID']); ?></p> 
-                    <form action = "../general/funcs.php" method = "post" enctype="multipart/form-data" id ="form">
-                        <label class = "btn btn-info profile-btn">
-                            Update Profile Picture
-                            <input hidden = true type = "file" name = "image" id = "image" accept = ".jpeg,.JPG,.PNG">
-                        </label>
-                        <input type = "hidden" name = "message" value = "update-prof-profile-picture">
-                    </form>
+                    <div class = "biography" id = "biography-text"><p> <?php echo profBio($_SESSION['profID']); ?> </p></div>
+                    
+                    <!-- <button class = "btn btn-warning inline w45" id = "update-bio"> Update Biography </button> -->
+                    <header>
+                        <!-- EDIT THIS WHEN CHANGING FROM GLITCH -->
+                        <form class = "inline w45" action = "../general/funcs.php" method = "post" enctype="multipart/form-data" id ="form">
+                            <label class = "btn btn-info profile-btn" style = "width: 100% !important; margin:0% !important;">
+                                    Profile Picture
+                                <input hidden = true type = "file" name = "image" id = "image" accept = ".jpeg,.JPG,.PNG">
+                            </label>
+                            <input type = "hidden" name = "message" value = "update-prof-profile-picture">
+                        </form>
+                        <button class = "btn btn-warning inline" id = "update-bio">Biography</button>
+                        <button class = "btn btn-light inline" id = "update-school" > Schoo; </button> <!-- OPTION FOR LATER: will need to modify datamodel with history table of schools -->
+                        <!-- <button class = "navBtn inline" onclick = "location.replace('../student/explore.php');" >Explore</button> -->
+                    </header>
                 </div>
                 <div class = "feed" id = "feed">
                     <h3> My Classes </h3>
@@ -56,9 +64,8 @@
                     <button class = "btn btn-secondary orderby inline">Order By Name </button>
                     <button class = "btn btn-secondary orderby inline">Order By Name </button> -->
                         
-                                <?php echo populateProfClasses($_SESSION['profID']); ?>
-                            
-                        <button class = "btn btn-info profClassesTable">Add a Class </button>
+                        <?php echo populateProfClasses($_SESSION['profID']); ?>
+                        <button class = "btn btn-info profClassesTable" id = "addProfClass">Add a Class </button>
                     </span>
                     
                 </div>
@@ -69,5 +76,10 @@
         document.getElementById("image").onchange = function() {
             document.getElementById("form").submit();
         };
+        document.getElementById("update-bio").onclick = function() {
+            var bio = document.getElementById("biography-text");
+            bio.innerHTML = ""; //clear content from biography div
+            bio.innerHTML = "<form action = '../general/funcs.php' method = 'POST'><textarea style = 'width:100% !important;'></textarea><input type = 'hidden' name = 'message' value = 'update-bio'><button class = 'btn btn-success'>Submit</button></form>";
+        }
     </script>
 </html>

@@ -284,6 +284,16 @@
     }
 
     // --------------- PROFESSOR -----------------//
+    function profBio($prof) {
+        $c = connDB();
+        $sql = "SELECT Biography FROM Prof WHERE ID = ".$prof.";";
+        $s = $c -> prepare($sql);
+        $s -> execute();
+        $r = $s -> fetch(PDO::FETCH_ASSOC);
+        $c = null;
+        return $r['Biography'];
+    }
+
     function populateProfClasses($prof) {
         $tbegin = "<table class = 'table profClassesTable'>
         <thead>
