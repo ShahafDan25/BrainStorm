@@ -34,7 +34,7 @@
     border-radius: 7px;
 }
 .navBtn{
-    width: 20% !important;
+    width: 12% !important;
     color: white !important;
     background-color: black !important;
     border: 0px solid black;
@@ -184,7 +184,7 @@ header {
     font-weight: 600;
     background-color: black !important;
     text-align: center !important;
-    padding-right: 25% !important;
+    padding-right: 10% !important;
     padding-left: 2% !important;
     padding-top: 1.25% !important;
     padding-bottom: 0.75% !important;

@@ -23,9 +23,10 @@
     <body class = "profileBody">
         <header>
           <!-- EDIT THIS WHEN CHANGING FROM GLITCH -->
-            <img class="logo" src="../indexes/img/BsStudent.png" alt="logo" href="../indexes/studentIndex.html"/>
-            <button class = "navBtn inline" onclick = "location.replace('../student/mypath.php');" >My Path</button>
+            <a><img class="logo" src="../indexes/img/BsStudent.png" alt="logo" href="../indexes/studentIndex.html" onclick = "location.replace('../indexes/studentIndex.html');"/></a>
             <button class = "navBtn inline" onclick = "location.replace('../student/profile.php');" >Profile</button>
+            <button class = "navBtn inline" onclick = "location.replace('../student/mypath.php');" >My Path</button>
+            <button class = "navBtn inline" onclick = "location.replace('../student/explore.php');" >Explore</button>
         </header>
         <h1 class = "outerText">&nbsp; <?php echo nameByStudentID($_SESSION['student']); ?>'s Academic Path </h1>
         <h3 class = "outerText">&nbsp; @ <?php echo schoolByStudentID($_SESSION['student']);?> </h3>

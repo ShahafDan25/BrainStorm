@@ -1,5 +1,5 @@
 <?php
-    if(session_id() == '') session_start();
+    include_once "../general/session.php";
     // --------------- POSTS -----------------//
     if($_POST['message'] == "startClassSession")
     {
