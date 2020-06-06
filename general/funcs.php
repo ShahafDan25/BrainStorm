@@ -128,7 +128,7 @@
     {
         if(passwords_match($_POST['password'], $_POST['password-b']))
         {
-            signupprof($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['school'], $_POST['password'], $_POST['subject']);
+            signupprof($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['school'], $_POST['password']);
             echo '<script>location.replace("../prof/front.php");</script>';
         }
         else  echo '<script>alert(" Passwords Did Not Match ... "); location.replace("../prof/front.php");</script>';
@@ -194,6 +194,7 @@
     }
 
     // ======================= FUNCTIONS ===================== //
+
     function passwords_match($a, $b)
     {
         if($a == $b) return true;
@@ -283,6 +284,34 @@
     }
 
     // --------------- PROFESSOR -----------------//
+    function populateProfClasses($prof) {
+        $tbegin = "<table class = 'table profClassesTable'>
+        <thead>
+            <tr>
+                <th> Class </th>
+                <th> Read Comments </th>
+            </tr>
+        </thead>
+        <tbody>";
+        $tend = "</tobdy>
+        </table>";
+        $c = connDB();
+        $data = "";
+        $sql = "SELECT c.Name, c.Subject, c.Number, c.CRN FROM Class c JOIN ProfClass pc ON pc.Class_CRN = c.CRN WHERE Prof_ID = ".$prof." AND College_ID = (SELECT College_ID FROM Prof WHERE ID = ".$prof.");";
+        $s = $c ->  prepare($sql);
+        $s -> execute();
+        while($r = $s -> fetch(PDO::FETCH_ASSOC))
+        {
+            $data .= 
+            "<tr><form action = '../general/funcs.php' method = 'POST'>
+                    <td><p value = ".$r['CRN'].">".$r['Name']." ( ".$r['Subject'].$r['Number']. " ) </p></td>
+                    <td><input type = 'hidden' name = 'message' value = 'profReadOwnClassComments'><button class = 'btn btn-warning'>Explore</button></td>
+            </form><tr>";
+        }
+        if(strlen($data) < 2) return "<h5> You Don't have any classes yet, please add classes </h5>";
+        else return $tbegin.$data.$tend;
+    }
+    
     function getProfProfilePic($prof) {
         $c = connDB();
         $sql = "SELECT picture FROM Prof WHERE ID = ".$prof.";";
@@ -321,7 +350,7 @@
         return $r['Name'];
     }
 
-    function signupprof($em, $fn, $ln, $sc, $pw, $sj){
+    function signupprof($em, $fn, $ln, $sc, $pw){
         $c = connDB();
 
         $sql2 = "SELECT MAX(ID)+1 FROM Prof;";
@@ -329,7 +358,7 @@
         $s -> execute();
         $max = $s -> fetchColumn();
 
-        $sql = "INSERT INTO Prof VALUES (".$max.", '".$fn."', '".$ln."', 1, ".$sc.", '".$em."', '".$pw."', '".$sj."');";
+        $sql = "INSERT INTO Prof VALUES (".$max.", '".$fn."', '".$ln."', 1, ".$sc.", '".$em."', '".$pw."', 'NULL',  ' I am a Professor !');";
         $c->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $c -> exec($sql);
 

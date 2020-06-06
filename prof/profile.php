@@ -24,7 +24,7 @@
     <body class = "profile-body">
         <header>
           <!-- EDIT THIS WHEN CHANGING FROM GLITCH -->
-            <a><img class="logo" src="../indexes/img/BsStudent.png" alt="logo" href="../indexes/studentIndex.html" onclick = "location.replace('../indexes/studentIndex.html');"/></a>
+            <a><img class="logo" src="../indexes/img/BsProf.png" alt="logo" href="../indexes/profIndex.html" onclick = "location.replace('../indexes/profIndex.html');"/></a>
             <button class = "navBtn inline" onclick = "location.replace('../student/mypath.php');" >My Path</button>
             <button class = "navBtn inline" onclick = "location.replace('../student/explore.php');" >Explore</button>
         </header>
@@ -47,6 +47,20 @@
                         </label>
                         <input type = "hidden" name = "message" value = "update-prof-profile-picture">
                     </form>
+                </div>
+                <div class = "feed" id = "feed">
+                    <h3> My Classes </h3>
+                    
+                    <span class = "profClassesTable centrize">
+                    <!-- <button class = "btn btn-secondary orderby inline">Order By Name </button>
+                    <button class = "btn btn-secondary orderby inline">Order By Name </button>
+                    <button class = "btn btn-secondary orderby inline">Order By Name </button> -->
+                        
+                                <?php echo populateProfClasses($_SESSION['profID']); ?>
+                            
+                        <button class = "btn btn-info profClassesTable">Add a Class </button>
+                    </span>
+                    
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
                     <input type = "text" placeholder=" School Email" name="email" required/>
                     <input type = "text" placeholder=" First Name" name="firstname" required/>
                     <input type = "text" placeholder=" Last Name" name="lastname" required/>
-                    <select name = "subject" placeholder = " Subject" required> <?php echo populateSubjects(); ?> </select>
+                    <!-- <select name = "subject" placeholder = " Subject" required> <?php echo populateSubjects(); ?> </select> -->
                     <select name = "school" placeholder = " College / Institution" required> <?php echo populateSchools(); ?> </select>
                     <input type = "password" placeholder=" Password" name="password" id = "pwa" required>
                     <input type = "password" placeholder=" Verify Password" name = "password-b" id = "pwb" required>
